@@ -42,3 +42,12 @@
     border-top: 2px solid black;
     
 }
+
+.restartButton {
+  border-radius: 10%;
+  align-content: center;
+}
+
+.wholePage {
+    background-color: rgb(185, 232, 201);
+}

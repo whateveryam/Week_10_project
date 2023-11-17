@@ -4,71 +4,27 @@
 // Make it to where it will console log when a square is clicked using event Listners.
 
 
-//getting the boxes to change when clicked 
-let currentPlayer= "X"
+
+//WHAT I NEED TO FIGURE OUT ------
+//How to push specific plays to specific empty arrays (x and o)
+//              I already have it pushing to the all plays array
+//How to stop game when either x or o hits winning combo
+//Show prompt of which player won the game
+//Add reset function to my reset button
+// Make it look nicer please thanks
 
 let title = document.getElementById("heading")
 title.addEventListener("click", function() {
-    title.style.color="blue"
+    title.style.color="green"
 })
 
-let one = document.getElementById("1")
-one.addEventListener("click", function() {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    one.innerHTML=currentPlayer
-})
+//getting the boxes to change when clicked 
+let currentPlayer= "X"
+let playedSquares = [];
+let playerXSquares = [];
+let playerOSquares = [];
 
-let two = document.getElementById("2")
-two.addEventListener("click", function() {
-    currentPlayer = currentPlayer === "X" ? "0" : "X";
-    two.innerHTML=currentPlayer
-})
-
-let three = document.getElementById("3")
-three.addEventListener("click", function() {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    three.innerHTML=currentPlayer
-})
-
-let four = document.getElementById("4")
-four.addEventListener("click", function() {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    four.innerHTML=currentPlayer
-})
-
-let five = document.getElementById("5")
-five.addEventListener("click", function() {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    five.innerHTML=currentPlayer
-})
-
-let six = document.getElementById("6")
-six.addEventListener("click", function() {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    six.innerHTML=currentPlayer
-})
-
-let seven = document.getElementById("7")
-seven.addEventListener("click", function() {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    seven.innerHTML=currentPlayer
-})
-
-let eight = document.getElementById("8")
-eight.addEventListener("click", function() {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    eight.innerHTML=currentPlayer
-})
-
-let nine = document.getElementById("9")
-nine.addEventListener("click", function() {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    nine.innerHTML=currentPlayer
-})
-
-//rules of the game? 
-
-winningCombos=[
+const winningCombos=[
     [1, 2, 3], 
     [4, 5, 6], 
     [7, 8, 9], 
@@ -78,3 +34,58 @@ winningCombos=[
     [2, 5, 8], 
     [2, 6, 9]
 ]
+
+// for (let i=0; i < winningCombos.length; i++){
+//     console.log(winningCombos[i]);
+//     for (let x = 0; x < winningCombos[i].length; x++){
+//         console.log(winningCombos[i][x]);
+//     }
+// }
+
+
+// identify what changes with each one of the following and see how you can make it generic for a loop. 
+// change the id with your variable i in the loop.
+
+for (let i = 1; i <= 9 ; i++) {
+let square = document.getElementById(i) 
+square.addEventListener("click", function() {
+    if (!playedSquares.includes(i)) {
+    square.innerHTML=currentPlayer
+    if (currentPlayer === 'X') {
+        playerXSquares.push(i);
+        console.log(playerXSquares);
+    } else playerOSquares.push(i);
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    playedSquares.push(i)
+    console.log(playerOSquares);
+
+    }
+})
+}
+
+function XWins () {
+    for (let i=0; i < winningCombos.length; i++) {
+        if (playerXSquares.includes(winningCombos[i][0]) && playerXSquares.includes(winningCombos[i][1]) && playerXSquares.includes(winningCombos[i][2])) {
+            console.log('Player X wins!')
+            return 
+        } else console.log('It continues.....')
+    }
+}
+
+XWins ();
+
+
+// function checkWinner () {
+// for (let i = 0; i < winningCombos.length; i++) {
+//     if (playerXSquares.includes(winningCombos[i][0]) && playerXSquares.includes(winningCombos[i][1]) && playerXSquares.includes(winningCombos[i][2])) {
+//         return console.log('Player X wins!!')
+//     } else if (playerOSquares.includes(winningCombos[i][0]) && playerOSquares.includes(winningCombos[i][1]) && playerOSquares.includes(winningCombos[i][2])) {
+//         return console.log('Player O wins!!')
+// } else if (playedSquares.lengh === 9) {
+//         return console.log('CATS!!')
+// }
+
+// } 
+// }
+
+// checkWinner ();

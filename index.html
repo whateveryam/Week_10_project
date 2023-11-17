@@ -7,25 +7,31 @@
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="wholePage">
     <h1 id="heading" class="text-center">TIC TAC TOE</h1>
 <div class="container">
     <div class="row center-row">
-        <div id="1" class="col square"></div>
-        <div id="2" class="col square upper-middle"></div>
-        <div id="3" class="col square"></div>
+        <div id="1" class="square"></div>
+        <div id="2" class="square upper-middle"></div>
+        <div id="3" class="square"></div>
     </div>
     <div class="row center-row">
-        <div id="4" class="col square left-middle"></div>
-        <div id="5" class="col square"></div>
-        <div id="6" class="col square right-middle"></div>
+        <div id="4" class="square left-middle"></div>
+        <div id="5" class="square"></div>
+        <div id="6" class="square right-middle"></div>
     </div>
     <div class="row center-row">
-        <div id="7" class="col square"></div>
-        <div id="8" class="col square bottom-middle"></div>
-        <div id="9" class="col square"></div>
+        <div id="7" class="square"></div>
+        <div id="8" class="square bottom-middle"></div>
+        <div id="9" class="square"></div>
     </div>
 </div>
+
+<div class="winning-message" id="winningMessage">
+    <div data-winning-message-text> </div>
+    <button type="button" class="btn btn-outline-secondary" id= "restartButton" class= "restartButton" id= "restartButton" class= "restartButton">Restart</button>
+</div>
+
 
 
 <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
