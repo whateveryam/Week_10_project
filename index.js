@@ -1,91 +1,93 @@
-//Make the squares
-// Borders for the squares
-// Name each square using an id
-// Make it to where it will console log when a square is clicked using event Listners.
-
-
-
-//WHAT I NEED TO FIGURE OUT ------
-//How to push specific plays to specific empty arrays (x and o)
-//              I already have it pushing to the all plays array
-//How to stop game when either x or o hits winning combo
-//Show prompt of which player won the game
-//Add reset function to my reset button
-// Make it look nicer please thanks
-
 let title = document.getElementById("heading")
 title.addEventListener("click", function() {
-    title.style.color="green"
+    title.style.color="blue"
 })
 
 //getting the boxes to change when clicked 
-let currentPlayer= "X"
-let playedSquares = [];
-let playerXSquares = [];
-let playerOSquares = [];
+const square = document.querySelectorAll(".square");
+let currentPlayer= "X";
+let options = ["","","","","","","","",""];
+let running = false;
 
 const winningCombos=[
-    [1, 2, 3], 
-    [4, 5, 6], 
-    [7, 8, 9], 
-    [1, 5, 9], 
-    [3, 5, 7], 
-    [1, 4, 7],
-    [2, 5, 8], 
-    [2, 6, 9]
+    [0, 1, 2], 
+    [3, 4, 5], 
+    [6, 7, 8], 
+    [0, 4, 8], 
+    [2, 4, 6], 
+    [0, 3, 6],
+    [1, 4, 7], 
+    [1, 5, 8]
 ]
 
-// for (let i=0; i < winningCombos.length; i++){
-//     console.log(winningCombos[i]);
-//     for (let x = 0; x < winningCombos[i].length; x++){
-//         console.log(winningCombos[i][x]);
-//     }
-// }
+startGame();
 
+function startGame(){
+    square.forEach((square, index) => {
+        square.addEventListener("click", squareClicked);
+        square.setAttribute("squareIndex", index);
+    });
 
-// identify what changes with each one of the following and see how you can make it generic for a loop. 
-// change the id with your variable i in the loop.
-
-for (let i = 1; i <= 9 ; i++) {
-let square = document.getElementById(i) 
-square.addEventListener("click", function() {
-    if (!playedSquares.includes(i)) {
-    square.innerHTML=currentPlayer
-    if (currentPlayer === 'X') {
-        playerXSquares.push(i);
-        console.log(playerXSquares);
-    } else playerOSquares.push(i);
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    playedSquares.push(i)
-    console.log(playerOSquares);
-
-    }
-})
+    restartButton.addEventListener("click", restartGame);
+    statusText.textContent = `${currentPlayer}'s turn`;
+    running = true;
 }
 
-function XWins () {
-    for (let i=0; i < winningCombos.length; i++) {
-        if (playerXSquares.includes(winningCombos[i][0]) && playerXSquares.includes(winningCombos[i][1]) && playerXSquares.includes(winningCombos[i][2])) {
-            console.log('Player X wins!')
-            return 
-        } else console.log('It continues.....')
+function squareClicked(){
+    const squareIndex = this.getAttribute("squareIndex");
+
+    if(options[squareIndex] != "" || !running){
+        return;
+    }
+
+    updateSquare(this, squareIndex);
+    checkWinner();
+}
+
+function updateSquare(square, index){
+    options[index] = currentPlayer;
+    square.textContent = currentPlayer;
+}
+function changePlayer(){
+    currentPlayer = (currentPlayer == "X") ? "O" : "X";
+    statusText.textContent = `${currentPlayer}'s turn`;
+}
+
+function checkWinner(){
+    let roundWon = false;
+
+    for(let i = 0; i < winningCombos.length; i++){
+        const condition = winningCombos[i];
+        const squareA = options[condition[0]];
+        const squareB = options[condition[1]];
+        const squareC = options[condition[2]];
+
+        if(squareA == "" || squareB == "" || squareC == ""){
+            continue;
+        }
+        if(squareA == squareB && squareB == squareC){
+            roundWon = true;
+            break;
+        }
+    }
+
+    if(roundWon){
+        statusText.textContent = `${currentPlayer} wins!`;
+        running = false;
+    }
+    else if(!options.includes("")){
+        statusText.textContent = `Draw!`;
+        running = false;
+    }
+    else{
+        changePlayer();
     }
 }
 
-XWins ();
-
-
-// function checkWinner () {
-// for (let i = 0; i < winningCombos.length; i++) {
-//     if (playerXSquares.includes(winningCombos[i][0]) && playerXSquares.includes(winningCombos[i][1]) && playerXSquares.includes(winningCombos[i][2])) {
-//         return console.log('Player X wins!!')
-//     } else if (playerOSquares.includes(winningCombos[i][0]) && playerOSquares.includes(winningCombos[i][1]) && playerOSquares.includes(winningCombos[i][2])) {
-//         return console.log('Player O wins!!')
-// } else if (playedSquares.lengh === 9) {
-//         return console.log('CATS!!')
-// }
-
-// } 
-// }
-
-// checkWinner ();
+function restartGame(){
+    currentPlayer = "X";
+    options = ["", "", "", "", "", "", "", "", ""];
+    statusText.textContent = `${currentPlayer}'s turn`;
+    square.forEach(square => square.textContent = "");
+    running = true;
+}

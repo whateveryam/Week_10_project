@@ -1,10 +1,4 @@
 
-.center-row {
-    display: flex;
-    justify-content: center;
-
-}
-
 .square {
     max-width: 100px;
     max-height:100px;
@@ -13,41 +7,25 @@
     border: 2px solid black;
     text-align: center;
     padding: 50px 0;
+    font-family: 'Courier New', Courier, monospace;
 }
 
-.upper-middle {
-    border-bottom: 2px solid black;
-    border-left: 2px solid black;
-    border-right: 2px solid black;
-    
+#statusText {
+    text-align: center;
 }
 
-.right-middle {
-    border-bottom: 2px solid black;
-    border-left: 2px solid black;
-    border-top: 2px solid black;
-    
-}
-
-.bottom-middle {
-    border-top: 2px solid black;
-    border-right: 2px solid black;
-    border-left: 2px solid black;
-    
-}
-
-.left-middle {
-    border-bottom: 2px solid black;
-    border-right: 2px solid black;
-    border-top: 2px solid black;
-    
-}
-
-.restartButton {
-  border-radius: 10%;
-  align-content: center;
+#restartButton {
+  border-radius: 40%;
+  text-align: center;
 }
 
 .wholePage {
-    background-color: rgb(185, 232, 201);
+    background-color: rgb(160, 194, 251);
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    width: 225px;
+    margin: auto;
 }
