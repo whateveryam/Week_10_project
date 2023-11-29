@@ -3,7 +3,10 @@ title.addEventListener("click", function() {
     title.style.color="blue"
 })
 
-//getting the boxes to change when clicked 
+//getting all cells named square
+//stating which player starts so we can later alternate
+//empty array for moves, 9 for each square
+//boolean to help later indicate if the game is over 
 const square = document.querySelectorAll(".square");
 let currentPlayer= "X";
 let options = ["","","","","","","","",""];
@@ -21,6 +24,7 @@ const winningCombos=[
 ]
 
 startGame();
+
 
 function startGame(){
     square.forEach((square, index) => {
@@ -76,7 +80,7 @@ function checkWinner(){
         running = false;
     }
     else if(!options.includes("")){
-        statusText.textContent = `Draw!`;
+        statusText.textContent = `Cats!`;
         running = false;
     }
     else{
